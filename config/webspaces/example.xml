@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.sulu.io/webspace/webspace http://schemas.sulu.io/webspace/webspace-1.1.xsd">
     <!-- See: http://docs.sulu.io/en/latest/book/webspaces.html how to configure your webspace-->
 
-    <name>Custom Controller</name>
-    <key>custom-controller</key>
+    <name>example.com</name>
+    <key>example</key>
 
     <localizations>
         <!-- See: http://docs.sulu.io/en/latest/book/localization.html how to add new localizations -->
@@ -14,6 +14,7 @@
     <default-templates>
         <default-template type="page">default</default-template>
         <default-template type="home">homepage</default-template>
+        <default-template type="moon">moon</default-template>
     </default-templates>
 
     <templates>
