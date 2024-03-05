@@ -4,30 +4,33 @@ declare(strict_types=1);
 
 namespace App\Controller\Website;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sulu\Bundle\WebsiteBundle\Resolver\TemplateAttributeResolverInterface;
+use Sulu\Bundle\WebsiteBundle\Controller\WebsiteController;
+use Sulu\Component\Content\Compat\StructureInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MoonPhaseController extends AbstractController
+class MoonPhaseController extends WebsiteController
 {
-	public function __construct(
-		private readonly TemplateAttributeResolverInterface $templateAttributeResolver,
-	) {
-	}
-
 	#[Route(path: '/moon', name: 'app.moon', defaults: ['_requestAnalyzer' => false])]
-	public function indexAction(): Response
+	public function indexAction(StructureInterface $structure, $preview = false, $partial = false): Response
 	{
-		return $this->render(
-			'pages/moon.html.twig',
-			$this->templateAttributeResolver->resolve([
-				'content' => $this->lunar_phase()
-			]),
+		return $this->renderStructure(
+			$structure,
+			[],
+			$preview,
+			$partial
 		);
 	}
 
-	private function lunar_phase()
+	protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
+	{
+		$attributes = parent::getAttributes($attributes, $structure, $preview);
+		$attributes['content'] = $this->lunar_phase();
+
+		return $attributes;
+	}
+
+	protected function lunar_phase()
 	{
 		$year = date('Y');
 		$month = date('n');
