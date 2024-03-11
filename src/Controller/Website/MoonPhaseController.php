@@ -11,21 +11,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MoonPhaseController extends WebsiteController
 {
-	#[Route(path: '/moon', name: 'app.moon', defaults: ['_requestAnalyzer' => false])]
+	#[Route('/moon')]
 	public function indexAction(StructureInterface $structure, $preview = false, $partial = false): Response
 	{
-		return $this->renderStructure(
+		$response = $this->renderStructure(
 			$structure,
 			[],
 			$preview,
 			$partial
 		);
+
+		return $response;
 	}
 
-	protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)
+	protected function getAttributes($attributes, ?StructureInterface $structure = null, $preview = false)
 	{
 		$attributes = parent::getAttributes($attributes, $structure, $preview);
-		$attributes['content'] = $this->lunar_phase();
+		$attributes['moonphase'] = $this->lunar_phase();
 
 		return $attributes;
 	}
@@ -49,8 +51,7 @@ class MoonPhaseController extends WebsiteController
 		if ($phase == 8) {
 			$phase = 0;
 		}
-		//$phase_array = array('new', 'waxing crescent', 'first quarter', 'waxing gibbous', 'full', 'waning gibbous', 'last quarter', 'waning crescent');
-		$phase_array = array('🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘');
-		return $phase_array[$phase];
+		$phase_symbols = array('🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘');
+		return $phase_symbols[$phase];
 	}
 }
