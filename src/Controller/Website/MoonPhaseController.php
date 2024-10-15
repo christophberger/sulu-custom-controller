@@ -25,12 +25,12 @@ class MoonPhaseController extends WebsiteController
 	protected function getAttributes($attributes, ?StructureInterface $structure = null, $preview = false)
 	{
 		$attributes = parent::getAttributes($attributes, $structure, $preview);
-		$attributes['moonphase'] = $this->lunar_phase();
+		$attributes['moonphase'] = $this->lunarPhase();
 
 		return $attributes;
 	}
 
-	protected function lunar_phase()
+	protected function lunarPhase()
 	{
 		$year = date('Y');
 		$month = date('n');
